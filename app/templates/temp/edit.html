@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% set PAGE_TITLE = "edit template" %}
+{% block body %}
+
+<div class="edit_template_container">
+  <div class="row">
+    <div class="span10">
+      <form action="{{url_for('template.edit', id=template.id)}}" method="POST" enctype="multipart/form-data">
+        {{form.csrf}}
+		<div class="clearfix">
+          {{form.subject.label}} <div class="input">{{form.subject(size=30)}}</div>
+        </div>
+		<div class="clearfix">
+          {{form.description.label}} <div class="input">{{form.description(size=50)}}</div>
+        </div>
+		<div class="clearfix">
+          {{form.tags.label}} <div class="input">{{form.tags(size=30, placeholder="white, pink, blue")}}</div>
+        </div>
+		<div class="clearfix">
+          {{form.archive.label}} <div class="input">{{form.archive}}</div>
+        </div>
+		<div class="clearfix">
+           <div class="input">{{form.submit_update}}</div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+.boxgrid	{ 
+	width: 210px; 
+	background: #161613; 
+	height: 150px;
+	margin-bottom: 20px; 
+	border: solid 2px #555;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.175);
+    -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.175);
+	overflow: hidden; 
+	position: relative;
+}
+
+.boxgrid img{ 
+	position: absolute; 
+	top: 0; 
+	left: 0;
+    display: block;
+}
+.boxgrid p{ 
+	padding: 0 10px; 
+	color: #afafaf; 
+	/*font-weight:bold; */
+}
+	
+.boxcaption{ 
+	float: left; 
+	position: absolute; 
+	background: #000; 
+	height: 100px; 
+	width: 100%; 
+	opacity: .8; 
+	/* For IE 5-7 */
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+	/* For IE 8 */
+	-MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+}
+.captionfull .boxcaption {
+	top: 150px;
+	left: 0;
+}
+.caption .boxcaption {
+	top: 125px;
+	left: 0;
+}
+
+.boxcaption h3 {
+    color: #fff;
+    line-height: 1.6;
+    margin-left:2px;
+    font-size: 16px;
+}

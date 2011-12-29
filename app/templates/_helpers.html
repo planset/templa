@@ -1,0 +1,70 @@
+{% macro link_to(endpoint, text) -%}
+<a href="{{ url_for(endpoint, **kwargs) }}">{{ text|safe }}</a>
+{%- endmacro %}
+
+{% macro external_link_to(url, text, target="_self") -%}
+<a href="{{ url }}" target="{{ target }}">{{ text|safe }}</a>
+{%- endmacro %}
+
+{% macro form_tag(endpoint, method='post', onsubmit='') -%}
+<form action="{{ url_for(endpoint, **kwargs) }}" method="{{ method }}" onsubmit="{{ onsubmit }}" >
+    <input type="hidden" name="_csrf_token" id="_csrf_token" value="{{ csrf_token() }}">
+  {{ caller () }}
+</form>
+{%- endmacro %}
+
+
+{% macro select_tag(name) -%}
+<select name="{{ name }}" id="{{ name }}">
+  {{ caller () }}
+</select>
+{%- endmacro %}
+
+{% macro option(value, text) -%}
+<option value="{{ value }}">{{ text|safe }}</option>
+{%- endmacro %}
+
+{% macro render_field(field) %}
+  <dt>{{ field.label }}
+  <dd>{{ field(**kwargs)|safe }}
+  {% if field.errors %}
+    <ul class="errors">
+    {% for error in field.errors %}<li>{{ error }}{% endfor %}
+    </ul>
+  {% endif %}
+  </dd>
+{% endmacro %}
+
+
+{% macro render_pagination(pagination) %}
+  <div class="pagination">
+    <ul>
+	  {% if pagination.has_prev %}
+      <li class="prev">
+		<a href="{{ url_for_other_page(pagination.page - 1) }}">&larr; Previous</a>
+	  </li>
+	  {% else %}
+      <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+	  {% endif %}
+  
+  {%- for page in pagination.iter_pages() %}
+    {% if page %}
+      {% if page != pagination.page %}
+        <li><a href="{{ url_for_other_page(page) }}">{{ page }}</a></li>
+      {% else %}
+        <li class="active"><a href="#">{{ page }}</a></li>
+      {% endif %}
+    {% else %}
+      <li class="ellipsis">…</li>
+    {% endif %}
+  {%- endfor %}	
+	  {% if pagination.has_next %}
+      <li class="next">
+		<a href="{{ url_for_other_page(pagination.page + 1) }}">Next &rarr;</a>
+	  </li>
+	  {% else %}
+      <li class="next disabled"><a href="#">Next &rarr;</a></li>
+	  {% endif %}
+    </ul>
+  </div>
+{% endmacro %}
