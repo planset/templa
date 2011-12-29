@@ -148,7 +148,7 @@ class UserModel(object):
 
 
 class TagModel(object):
-    def get_tag(self, tag_name):
+    def get_tag(self, tagname):
         return Tag.query.filter(Tag.name==tagname).first()
     def delete_having_no_template(self):
         items = Tag.query.all()
