@@ -20,7 +20,7 @@
           {{form.archive.label}} <div class="input">{{form.archive}}</div>
         </div>
 		<div class="clearfix">
-           <div class="input">{{form.submit_update}}</div>
+           <div class="input"><a class="btn" href="{{url_for('template.show', id=template.id)}}">Cancel</a> {{ form.submit_update(class="btn primary")}}</div>
         </div>
       </form>
     </div>

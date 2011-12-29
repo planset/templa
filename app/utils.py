@@ -5,7 +5,7 @@
 from functools import wraps
 
 from flask import (
-    Flask, session, g, redirect, url_for, session, request, flash, abort
+    Flask, session, g, redirect, url_for, session, request, flash, abort, current_app
     )
 
 def requires_login(f):
@@ -19,15 +19,16 @@ def requires_login(f):
 def requires_admin(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if g.user and g.user.role.rolename != "admin":
-            flash(u"このページを表示するには管理者権限が必要です。")
-            abort(401)
+        if g.user is None or g.user.role.rolename != "admin":
+            flash(u"管理者権限が必要です。")
+            return redirect(url_for('index'))
         return f(*args, **kwargs)
     return decorated_function
 
 def flash_errors(errors):
     for error in errors.values():
-        flash(error)
+        for error_str in error:
+            flash(error_str)
 
 def format_datetime(dt_string):
     """

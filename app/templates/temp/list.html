@@ -6,16 +6,16 @@
 <div class="row">
   {% for item in pagination.items %}
 	<div class="template span4 boxgrid caption">
-        <p class="">
+        <p>
 			<a href="{{url_for('template.show', id=item.id)}}"><img class="thumbnail" src="{{url_for('static', filename=get_main_thumbnail_filename(item.id)) }}" /></a>
 		</p>
 		<div class="cover boxcaption">
           <h3>{{ item.subject }}</h3>
 		  <p>
-			<a  href="{{url_for('template.show', id=item.id)}}">details &raquo;</a>
-			<a  href="{{ get_demo_url(item.id, item.index_filename) }}">demo &raquo;</a>
-			<a  href="{{ get_archive_url(item.id, item.filename) }}">download &raquo;</a>
-			</p>
+			<a href="{{url_for('template.show', id=item.id)}}">details &raquo;</a>
+			<a href="{{ get_demo_url(item.id, item.index_filename) }}">demo &raquo;</a>
+			<a href="{{ get_archive_url(item.id, item.filename) }}">download &raquo;</a>
+		  </p>
 		</div>
 	</div>
   {% endfor %}

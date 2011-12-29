@@ -30,11 +30,12 @@ def make_thumbnail(template_id, index_filename):
                                   image_filename)
     webscreenshot.save1280x720(html_filepath, image_filepath)
     
-    t = thumbnail.Thumbnail(settings.CUR_DIR, settings.THUMBNAIL_DIR_NAME)
-    t.from_file(image_filepath)
-    t.saveall(str(template_id))
+    if os.path.exists(image_filepath):
+        t = thumbnail.Thumbnail(settings.CUR_DIR, settings.THUMBNAIL_DIR_NAME)
+        t.from_file(image_filepath)
+        t.saveall(str(template_id))
+        os.remove(image_filepath)
     
-    os.remove(image_filepath)
     return
 
 def get_save_dirpath(template_id):

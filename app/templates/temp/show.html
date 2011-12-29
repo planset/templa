@@ -2,6 +2,7 @@
 {% set PAGE_TITLE = item.subject %}
 {% set is_active_home = True %}
 {% block breadcrumb %}
+<!--
 <div>
 	<ul class="breadcrumb">
 	  <li><a href="{{url_for('index')}}">Home</a> <span class="divider">/</span></li>
@@ -9,6 +10,7 @@
 	  <li class="active">{{BREADCRUMB_HERE}}</li>
 	</ul>
 </div>
+-->
 {% endblock %}
 {% set BREADCRUMB_HERE = item.subject %}
 {% from '_helpers.html' import render_pagination %}
@@ -36,7 +38,7 @@
 			{% if session.user_id and g.user.role.rolename=="admin" %}
 			<a class="btn primary" href="{{ url_for('template.edit', id=item.id) }}">EDIT</a>
 			<form  style="display: inline-block;"action="{{ url_for('template.delete', id=item.id) }}" method="POST" onsubmit='if(!confirm("本当に削除してもよろしいですか？")) return false;'>
-	          <input class="btn danger" type="submit" value="delete" name="delete" />
+	          <input class="btn danger" type="submit" value="DELETE" name="delete" />
 			</from>
 			{% endif %}
 		</div>

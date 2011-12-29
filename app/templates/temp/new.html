@@ -21,7 +21,7 @@
               {{form.archive.label}} <div class="input">{{form.archive}}</div>
             </div>
 			<div class="clearfix">
-               <div class="input">{{form.submit}}</div>
+               <div class="input"><a class="btn" href="{{url_for('template.list')}}">Cancel</a> {{form.submit(class="btn primary")}}</div>
             </div>
           </form>
         </div>

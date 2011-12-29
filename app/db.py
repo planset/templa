@@ -60,8 +60,8 @@ class Template(Base):
     index_filename = Column(String(), nullable=False)
     tags = relationship(Tag, secondary="tag_relationships")
     thumbnail_count = Column(Integer(), nullable=False)
-    create_date = Column(String(10), nullable=False, default=datetime.datetime.now())
-    modified_date = Column(String(10), nullable=False, default=datetime.datetime.now())
+    create_date = Column(String(10), nullable=False)
+    modified_date = Column(String(10), nullable=False)
     
     def __init__(self, subject, user, filename, filesize, tags='', description='', url='', 
                  compressed_filelist='', index_filename=''):
@@ -78,6 +78,8 @@ class Template(Base):
         for tag_name in tags:
             tag = Tag.query.filter(Tag.name==tag_name).first() or Tag(tag_name)
             self.tags.append(tag)
+        self.create_date = datetime.datetime.now()
+        self.modified_date = datetime.datetime.now()
     
     def get_filelist(self):
         import zlib
@@ -120,7 +122,7 @@ class User(Base):
     quote = Column(Float(), nullable=False, default=10.0)
     datasize = Column(Float(), nullable=False, default=0.0)
     email = Column(String(120), nullable=False)#, unique=True)
-    create_date = Column(String(10), nullable=False, default=datetime.datetime.now())
+    create_date = Column(String(10), nullable=False)
 
     def __init__(self, username, role, password='', twitter_id='', facebook_id='', email=''):
         super(User, self).__init__()
@@ -130,6 +132,7 @@ class User(Base):
         self.twitter_id = twitter_id
         self.facebook_id = facebook_id
         self.email = email
+        self.create_date = datetime.datetime.now()
 
     def set_password(self, password):
         self.password = get_password_hash(SECRET_KEY, self.username, password)
