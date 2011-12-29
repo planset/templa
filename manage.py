@@ -15,11 +15,8 @@ from app import settings, app
 manager = Manager(app)
 
 @manager.command
-def debug():
-    app.run(debug=True, port=5000)
-
-@manager.command
 def init():
+    """initialize database and directories"""
     try:
         if os.path.exists(settings.DATA_DIR_PATH):
             shutil.rmtree(settings.DATA_DIR_PATH)
@@ -55,6 +52,7 @@ def init():
 
 @manager.command
 def adminpassword():
+    """set admin password"""
     admin_username = "admin"
 
     password = getpass.getpass()

@@ -134,6 +134,7 @@ class TemplateModel(object):
         db_session.delete(template)
         db_session.commit()
         delete_template_files(template.id)
+        TagModel().delete_having_no_template()
         
 class UserRoleModel(object):
     def get_userrole(self, rolename):
@@ -149,4 +150,10 @@ class UserModel(object):
 class TagModel(object):
     def get_tag(self, tag_name):
         return Tag.query.filter(Tag.name==tagname).first()
+    def delete_having_no_template(self):
+        items = Tag.query.all()
+        for item in items:
+            if len(item.templates)==0:
+                db_session.delete(item)
+        db_session.commit()
         
