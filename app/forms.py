@@ -1,12 +1,12 @@
+# -*- encoding: utf-8 -*-
+"""
+    :copyright: (c) 2011 by daisuke igarashi.
+"""
 from flaskext.wtf import (Form, TextField, TextAreaField, Required, 
                          Length, PasswordField, FileField, file_allowed,
                          file_required, HiddenField, SelectField, SubmitField,
                          FieldList)
 from flaskext.wtf import (ValidationError)
-# -*- encoding: utf-8 -*-
-"""
-    :copyright: (c) 2011 by daisuke igarashi.
-"""
 from wtforms.fields import Field
 from wtforms.validators import StopValidation
 from wtforms.widgets import (Select, TextInput)
