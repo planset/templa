@@ -60,9 +60,9 @@ def rmtree(path):
 def delete_template_files(id):
     rmtree(os.path.join(settings.DATA_DIR_PATH, str(id)))
     rmtree(os.path.join(settings.DEMO_DIR_PATH, str(id)))
+    t = thumbnail.Thumbnail(settings.CUR_DIR, settings.THUMBNAIL_DIR_NAME)
     for size in thumbnail.THUMBNAIL_SIZE_DICT.keys():
-        p = os.path.join(settings.THUMBNAIL_DIR_PATH, str(id)+"_"+size+".jpg")
-        if os.path.exists(p):
+        if os.path.exists(t.get_thumbnail_path(id, size)):
             os.remove(p)
 
 class TemplateModel(object):

@@ -6,6 +6,7 @@ import os
 import sys
 import shutil
 import getpass
+from pwd import getpwnam, getpwuid
 
 from flask.ext.script import Manager
 from app.lib.mypassword import get_password_hash
@@ -14,19 +15,24 @@ from app import settings, app
 
 manager = Manager(app)
 
+APACHE_USERNAME = "apache"
+apache_uid = getpwnam(APACHE_USERNAME)[2]
+apache_gid = getpwnam(APACHE_USERNAME)[3]
+
+def remakedir(path):
+    if os.path.exists(path):
+        shutil.rmtree(path)
+    os.mkdir(path)
+    if getpwuid(os.getuid())[0] == 'root':
+        os.chown(path, apache_uid, apache_gid)
+
 @manager.command
 def init():
     """initialize database and directories"""
     try:
-        if os.path.exists(settings.DATA_DIR_PATH):
-            shutil.rmtree(settings.DATA_DIR_PATH)
-        os.mkdir(settings.DATA_DIR_PATH)
-        if os.path.exists(settings.DEMO_DIR_PATH):
-            shutil.rmtree(settings.DEMO_DIR_PATH)
-        os.mkdir(settings.DEMO_DIR_PATH)
-        if os.path.exists(settings.THUMBNAIL_DIR_PATH):
-            shutil.rmtree(settings.THUMBNAIL_DIR_PATH)
-        os.mkdir(settings.THUMBNAIL_DIR_PATH)
+        remakedir(settings.DATA_DIR_PATH)
+        remakedir(settings.DEMO_DIR_PATH)
+        remakedir(settings.THUMBNAIL_DIR_PATH)
     except:
         print sys.exc_info()
         
@@ -34,6 +40,8 @@ def init():
         if os.path.exists(settings.DB_PATH):
             os.remove(settings.DB_PATH)
         init_db()
+        if getpwuid(os.getuid())[0] == 'root':
+            os.chown(settings.DB_PATH, apache_uid, apache_gid)
     except:
         print sys.exc_info()
 

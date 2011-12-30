@@ -50,8 +50,10 @@ class Thumbnail(object):
         self.quality = quality
     
     def __get_extension(self, format):
-        if format.upper() == "JPG":
+        if format.upper() in ["JPG", "JPEG"]:
             return "jpg"
+        elif format.upper() == "PNG":
+            return "png"
         else:
             raise Exception()
         
